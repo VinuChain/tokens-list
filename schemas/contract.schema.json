@@ -13,22 +13,27 @@
     "project": {
       "type": "string",
       "description": "Reference to the project file (without .json extension)",
-      "pattern": "^[a-z0-9-]+$"
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "minLength": 1,
+      "maxLength": 100
     },
     "name": {
       "type": "string",
       "description": "User-friendly name for the contract",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 200
     },
     "contract": {
       "type": "string",
       "description": "Contract name as it appears in the source code",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 100
     },
     "source": {
       "type": "string",
-      "description": "URL to the contract source code or documentation",
-      "format": "uri"
+      "description": "HTTPS URL to the contract source code or documentation",
+      "pattern": "^https://.*",
+      "maxLength": 500
     },
     "tags": {
       "type": "array",
@@ -54,12 +59,20 @@
           "timelock"
         ]
       },
-      "uniqueItems": true
+      "uniqueItems": true,
+      "maxItems": 10
     },
     "features": {
       "type": "object",
       "description": "Additional features or metadata about the contract",
-      "additionalProperties": true
+      "additionalProperties": {
+        "anyOf": [
+          {"type": "string", "maxLength": 500},
+          {"type": "number"},
+          {"type": "boolean"}
+        ]
+      },
+      "maxProperties": 20
     }
   },
   "additionalProperties": false

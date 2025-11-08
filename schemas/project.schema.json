@@ -12,16 +12,19 @@
     "name": {
       "type": "string",
       "description": "Project or organization name",
-      "minLength": 1
+      "minLength": 1,
+      "maxLength": 200
     },
     "website": {
       "type": "string",
-      "description": "Main website URL",
-      "format": "uri"
+      "description": "Main website HTTPS URL",
+      "pattern": "^https://.*",
+      "maxLength": 500
     },
     "description": {
       "type": "string",
-      "description": "Brief description of the project"
+      "description": "Brief description of the project",
+      "maxLength": 1000
     },
     "contact": {
       "type": "string",
@@ -45,7 +48,9 @@
       "properties": {
         "chainId": {
           "type": "integer",
-          "description": "EIP155 chain ID where the token is deployed"
+          "description": "EIP155 chain ID where the token is deployed",
+          "enum": [26600],
+          "minimum": 1
         },
         "address": {
           "type": "string",
@@ -55,22 +60,25 @@
         "symbol": {
           "type": "string",
           "description": "Token symbol",
-          "minLength": 1
+          "minLength": 1,
+          "maxLength": 20
         },
         "name": {
           "type": "string",
-          "description": "Token name"
+          "description": "Token name",
+          "maxLength": 100
         },
         "decimals": {
           "type": "integer",
           "description": "Number of decimal places",
           "minimum": 0,
-          "maximum": 77
+          "maximum": 18
         },
         "logoURI": {
           "type": "string",
-          "description": "URI to token logo image",
-          "format": "uri"
+          "description": "HTTPS URL to token logo image (PNG/SVG)",
+          "pattern": "^https://.*\\.(png|svg|jpg|jpeg|webp)$",
+          "maxLength": 500
         }
       },
       "additionalProperties": false
@@ -81,38 +89,45 @@
       "properties": {
         "github": {
           "type": "string",
-          "description": "GitHub organization or repository URL",
-          "format": "uri"
+          "description": "GitHub organization or repository HTTPS URL",
+          "pattern": "^https://github\\.com/.*",
+          "maxLength": 500
         },
         "twitter": {
           "type": "string",
-          "description": "Twitter/X profile URL",
-          "format": "uri"
+          "description": "Twitter/X profile HTTPS URL",
+          "pattern": "^https://(twitter\\.com|x\\.com)/.*",
+          "maxLength": 500
         },
         "telegram": {
           "type": "string",
           "description": "Telegram channel or group URL",
-          "format": "uri"
+          "pattern": "^https://t\\.me/.*",
+          "maxLength": 500
         },
         "discord": {
           "type": "string",
-          "description": "Discord server invite URL",
-          "format": "uri"
+          "description": "Discord server invite HTTPS URL",
+          "pattern": "^https://(discord\\.gg|discord\\.com/invite)/.*",
+          "maxLength": 500
         },
         "medium": {
           "type": "string",
-          "description": "Medium publication URL",
-          "format": "uri"
+          "description": "Medium publication HTTPS URL",
+          "pattern": "^https://.*\\.?medium\\.com/.*",
+          "maxLength": 500
         },
         "coingecko": {
           "type": "string",
-          "description": "CoinGecko listing URL",
-          "format": "uri"
+          "description": "CoinGecko listing HTTPS URL",
+          "pattern": "^https://www\\.coingecko\\.com/.*",
+          "maxLength": 500
         },
         "coinmarketcap": {
           "type": "string",
-          "description": "CoinMarketCap listing URL",
-          "format": "uri"
+          "description": "CoinMarketCap listing HTTPS URL",
+          "pattern": "^https://coinmarketcap\\.com/.*",
+          "maxLength": 500
         }
       },
       "additionalProperties": false
