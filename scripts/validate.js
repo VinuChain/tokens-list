@@ -296,6 +296,8 @@ function validateProjectReferences() {
     return stat.isDirectory();
   });
 
+  const projectsWithContracts = new Set();
+
   for (const chainId of chainDirs) {
     const chainDir = path.join(contractsDir, chainId);
     const files = fs.readdirSync(chainDir).filter(f => f.endsWith('.json'));
@@ -310,6 +312,8 @@ function validateProjectReferences() {
           console.error(`❌ Missing project reference: ${filePath}`);
           console.error(`   Project "${data.project}" does not exist in projects/`);
           hasErrors = true;
+        } else if (data.project) {
+          projectsWithContracts.add(data.project);
         }
       } catch (error) {
         // Already handled in previous validation
@@ -318,6 +322,16 @@ function validateProjectReferences() {
   }
 
   console.log('✅ Project references validated');
+
+  // Check for orphaned projects (projects with no contracts)
+  const orphanedProjects = projectFiles.filter(p => !projectsWithContracts.has(p));
+  if (orphanedProjects.length > 0) {
+    console.log('\n⚠️  Found projects with no associated contracts:');
+    orphanedProjects.forEach(p => {
+      console.log(`   - ${p}.json`);
+    });
+    console.log('   Note: This is not an error, but projects should typically have at least one contract');
+  }
 }
 
 // Run all validations

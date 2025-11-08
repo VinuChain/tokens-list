@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "validate": "node scripts/validate.js",
-    "test": "npm run validate"
+    "test": "node tests/validate.test.js",
+    "test:all": "npm run validate && npm test"
   },
   "repository": {
     "type": "git",
