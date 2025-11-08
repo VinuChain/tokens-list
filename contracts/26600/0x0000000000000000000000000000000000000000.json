@@ -1,0 +1,12 @@
+{
+  "project": "example-project",
+  "name": "Example Token",
+  "contract": "ExampleToken",
+  "source": "https://github.com/example-project/contracts/blob/main/ExampleToken.sol",
+  "tags": ["token", "erc20"],
+  "features": {
+    "mintable": true,
+    "burnable": true,
+    "pausable": true
+  }
+}

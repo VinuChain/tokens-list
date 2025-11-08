@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Bash",
+      "Grep",
+      "WebFetch",
+      "WebSearch",
+      "Skill(*)",
+      "Skill(trading-bot-health-check)",
+      "Skill(htx-api-expert)",
+      "Skill(memory-diagnostic)",
+      "Skill(systematic-debugging)",
+      "Skill(skill-creator)",
+      "Skill(fameex-api-expert)",
+      "Skill(requesting-code-review)",
+      "Skill(market-maker-expert)",
+      "Skill(bybit-api-expert)",
+      "Skill(mexc-api-expert)",
+      "Skill(documentation-updater)",
+      "Skill(gateio-api-expert)",
+      "Skill(using-superpowers)",
+      "Skill(brainstorming)",
+      "Skill(using-git-worktrees)",
+      "Skill(writing-plans)",
+      "Skill(subagent-driven-development)"
+    ],
+    "deny": [],
+    "ask": [],
+    "defaultMode": "bypassPermissions",
+    "additionalDirectories": [
+      "C:\\c\\Users\\George\\Desktop\\George\\Crypto\\VINU\\Scripts"
+    ]
+  }
+}

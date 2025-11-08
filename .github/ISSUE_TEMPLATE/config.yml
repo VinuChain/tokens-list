@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: VinuChain Community Discord
+    url: https://discord.gg/vinuchain
+    about: Join our community for general questions and discussion
+  - name: VinuChain Documentation
+    url: https://docs.vinuchain.org
+    about: Read the official VinuChain documentation

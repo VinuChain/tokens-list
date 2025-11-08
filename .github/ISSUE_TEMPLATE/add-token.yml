@@ -1,0 +1,203 @@
+name: Add Token/Contract
+description: Submit a new token or contract to the VinuChain Token List
+title: "[SUBMISSION] Add <Project Name>"
+labels: ["submission", "new-token"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing to VinuChain Token List! Please fill out the information below.
+
+        **Note:** All addresses must be EIP55 checksummed. Use [ethsum.netlify.app](https://ethsum.netlify.app/) if needed.
+
+  - type: input
+    id: project-name
+    attributes:
+      label: Project Name
+      description: Official name of your project
+      placeholder: "Example Protocol"
+    validations:
+      required: true
+
+  - type: input
+    id: project-id
+    attributes:
+      label: Project ID
+      description: Lowercase identifier with hyphens (e.g., example-protocol)
+      placeholder: "example-protocol"
+    validations:
+      required: true
+
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      description: Official project website
+      placeholder: "https://example.com"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Project Description
+      description: Brief description of your project (2-3 sentences)
+      placeholder: "A decentralized finance protocol on VinuChain..."
+    validations:
+      required: true
+
+  - type: input
+    id: contact-email
+    attributes:
+      label: Contact Email
+      description: General contact email
+      placeholder: "contact@example.com"
+    validations:
+      required: false
+
+  - type: input
+    id: security-email
+    attributes:
+      label: Security Contact Email
+      description: Email for security vulnerability reports
+      placeholder: "security@example.com"
+    validations:
+      required: true
+
+  - type: input
+    id: token-address
+    attributes:
+      label: Token Contract Address
+      description: EIP55 checksummed address (if applicable)
+      placeholder: "0x..."
+    validations:
+      required: false
+
+  - type: input
+    id: token-symbol
+    attributes:
+      label: Token Symbol
+      description: Token ticker symbol
+      placeholder: "EXAMPLE"
+    validations:
+      required: false
+
+  - type: input
+    id: token-name
+    attributes:
+      label: Token Name
+      description: Full token name
+      placeholder: "Example Token"
+    validations:
+      required: false
+
+  - type: input
+    id: token-decimals
+    attributes:
+      label: Token Decimals
+      description: Number of decimal places
+      placeholder: "18"
+    validations:
+      required: false
+
+  - type: input
+    id: logo-uri
+    attributes:
+      label: Logo URI
+      description: HTTPS URL to your project/token logo (PNG/SVG, min 256x256px)
+      placeholder: "https://example.com/logo.png"
+    validations:
+      required: false
+
+  - type: textarea
+    id: contracts
+    attributes:
+      label: Contract Addresses
+      description: List all contract addresses you want to add (one per line, checksummed)
+      placeholder: |
+        0x1234567890123456789012345678901234567890 - Main Token Contract
+        0x0987654321098765432109876543210987654321 - Staking Contract
+    validations:
+      required: true
+
+  - type: textarea
+    id: contract-details
+    attributes:
+      label: Contract Details
+      description: For each contract, provide name, type, and any relevant tags
+      placeholder: |
+        Main Token Contract: ExampleToken (ERC20, token)
+        Staking Contract: StakingPool (staking, vault)
+    validations:
+      required: true
+
+  - type: input
+    id: source-code
+    attributes:
+      label: Source Code URL
+      description: GitHub repository or block explorer link
+      placeholder: "https://github.com/example/contracts"
+    validations:
+      required: false
+
+  - type: input
+    id: github
+    attributes:
+      label: GitHub
+      description: GitHub organization or repository URL
+      placeholder: "https://github.com/example"
+    validations:
+      required: false
+
+  - type: input
+    id: twitter
+    attributes:
+      label: Twitter/X
+      description: Twitter/X profile URL
+      placeholder: "https://twitter.com/example"
+    validations:
+      required: false
+
+  - type: input
+    id: telegram
+    attributes:
+      label: Telegram
+      description: Telegram group or channel URL
+      placeholder: "https://t.me/example"
+    validations:
+      required: false
+
+  - type: input
+    id: discord
+    attributes:
+      label: Discord
+      description: Discord server invite URL
+      placeholder: "https://discord.gg/example"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: verification
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I am authorized to represent this project
+          required: true
+        - label: All contract addresses are deployed on VinuChain (Chain ID 26600)
+          required: true
+        - label: All addresses are EIP55 checksummed
+          required: true
+        - label: The information provided is accurate and up-to-date
+          required: true
+        - label: I have read the [Contributing Guidelines](../../CONTRIBUTING.md)
+          required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other information you'd like to share
+      placeholder: "Optional: Audit reports, partnerships, etc."
+    validations:
+      required: false

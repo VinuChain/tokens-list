@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/VinuChain/vinuchain-tokens/schemas/project.schema.json",
+  "title": "Project",
+  "description": "Schema for VinuChain project entries",
+  "type": "object",
+  "required": [
+    "name",
+    "website"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project or organization name",
+      "minLength": 1
+    },
+    "website": {
+      "type": "string",
+      "description": "Main website URL",
+      "format": "uri"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the project"
+    },
+    "contact": {
+      "type": "string",
+      "description": "General contact email",
+      "format": "email"
+    },
+    "security": {
+      "type": "string",
+      "description": "Security contact email for vulnerability disclosure",
+      "format": "email"
+    },
+    "token": {
+      "type": "object",
+      "description": "Primary token information",
+      "required": [
+        "chainId",
+        "address",
+        "symbol",
+        "decimals"
+      ],
+      "properties": {
+        "chainId": {
+          "type": "integer",
+          "description": "EIP155 chain ID where the token is deployed"
+        },
+        "address": {
+          "type": "string",
+          "description": "EIP55 checksummed token contract address",
+          "pattern": "^0x[a-fA-F0-9]{40}$"
+        },
+        "symbol": {
+          "type": "string",
+          "description": "Token symbol",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "description": "Token name"
+        },
+        "decimals": {
+          "type": "integer",
+          "description": "Number of decimal places",
+          "minimum": 0,
+          "maximum": 77
+        },
+        "logoURI": {
+          "type": "string",
+          "description": "URI to token logo image",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    },
+    "social": {
+      "type": "object",
+      "description": "Social media and community links",
+      "properties": {
+        "github": {
+          "type": "string",
+          "description": "GitHub organization or repository URL",
+          "format": "uri"
+        },
+        "twitter": {
+          "type": "string",
+          "description": "Twitter/X profile URL",
+          "format": "uri"
+        },
+        "telegram": {
+          "type": "string",
+          "description": "Telegram channel or group URL",
+          "format": "uri"
+        },
+        "discord": {
+          "type": "string",
+          "description": "Discord server invite URL",
+          "format": "uri"
+        },
+        "medium": {
+          "type": "string",
+          "description": "Medium publication URL",
+          "format": "uri"
+        },
+        "coingecko": {
+          "type": "string",
+          "description": "CoinGecko listing URL",
+          "format": "uri"
+        },
+        "coinmarketcap": {
+          "type": "string",
+          "description": "CoinMarketCap listing URL",
+          "format": "uri"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

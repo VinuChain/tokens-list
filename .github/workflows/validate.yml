@@ -1,0 +1,95 @@
+name: Validate Submissions
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'contracts/**'
+      - 'projects/**'
+      - 'schemas/**'
+  push:
+    branches: [main]
+    paths:
+      - 'contracts/**'
+      - 'projects/**'
+      - 'schemas/**'
+
+jobs:
+  validate:
+    name: Validate JSON Files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run validation
+        run: npm run validate
+
+      - name: Check JSON formatting
+        run: |
+          # Check all JSON files are properly formatted
+          find contracts projects schemas -name "*.json" -type f -exec sh -c '
+            for file; do
+              if ! jq empty "$file" 2>/dev/null; then
+                echo "❌ Invalid JSON in $file"
+                exit 1
+              fi
+            done
+          ' sh {} +
+
+      - name: Verify checksums
+        run: |
+          # Verify all contract addresses are EIP55 checksummed
+          # This is a basic check - in production, use web3.js or ethers.js
+          find contracts -name "*.json" -type f | while read file; do
+            address=$(basename "$file" .json)
+            if [[ ! "$address" =~ ^0x[a-fA-F0-9]{40}$ ]]; then
+              echo "❌ Invalid address format: $address"
+              exit 1
+            fi
+            # Check it's not all lowercase or all uppercase (simple checksum verification)
+            if [[ "$address" =~ ^0x[a-f0-9]{40}$ ]] || [[ "$address" =~ ^0x[A-F0-9]{40}$ ]]; then
+              echo "⚠️  Warning: Address may not be checksummed: $address"
+            fi
+          done
+
+  comment:
+    name: Comment on PR
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Comment success
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ All validations passed! This submission looks good.'
+            })
+
+      - name: Comment failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ Validation failed. Please check the errors above and update your submission.'
+            })

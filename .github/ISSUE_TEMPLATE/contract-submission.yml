@@ -1,0 +1,120 @@
+name: Contract Submission
+description: Submit a new contract to the VinuChain Token List
+title: "[Contract] "
+labels: ["submission", "contract"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Submit a Contract
+
+        Use this form to submit a new contract to the VinuChain Token List.
+
+        **Please ensure:**
+        - You are authorized to submit this contract information
+        - All information provided is accurate
+        - The contract is deployed on VinuChain
+
+  - type: input
+    id: chain-id
+    attributes:
+      label: Chain ID
+      description: VinuChain network chain ID
+      placeholder: "26600"
+    validations:
+      required: true
+
+  - type: input
+    id: address
+    attributes:
+      label: Contract Address
+      description: EIP55 checksummed contract address
+      placeholder: "0x..."
+    validations:
+      required: true
+
+  - type: input
+    id: project
+    attributes:
+      label: Project ID
+      description: Lowercase, hyphenated project identifier (e.g., my-project)
+      placeholder: "my-project"
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Contract Name (User-friendly)
+      description: Human-readable name for the contract
+      placeholder: "My Token"
+    validations:
+      required: true
+
+  - type: input
+    id: contract-name
+    attributes:
+      label: Contract Name (Code)
+      description: Contract name as it appears in source code
+      placeholder: "MyToken"
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Source Code URL
+      description: Link to contract source code or documentation
+      placeholder: "https://github.com/example/contracts/blob/main/MyToken.sol"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: tags
+    attributes:
+      label: Contract Tags
+      description: Select all applicable tags
+      multiple: true
+      options:
+        - token
+        - nft
+        - erc20
+        - erc721
+        - erc1155
+        - factory
+        - proxy
+        - implementation
+        - governance
+        - staking
+        - vault
+        - router
+        - oracle
+        - bridge
+        - multisig
+        - timelock
+
+  - type: textarea
+    id: features
+    attributes:
+      label: Contract Features
+      description: JSON object describing additional features (optional)
+      placeholder: |
+        {
+          "mintable": true,
+          "burnable": true,
+          "pausable": true
+        }
+      render: json
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Verification
+      description: Please confirm the following
+      options:
+        - label: I am authorized to submit this contract information
+          required: true
+        - label: All information provided is accurate and up-to-date
+          required: true
+        - label: The contract is deployed on VinuChain
+          required: true
