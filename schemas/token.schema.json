@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/VinuChain/tokens-list/schemas/token.schema.json",
+  "title": "Token",
+  "description": "Schema for VinuChain token entries",
+  "type": "object",
+  "required": [
+    "symbol",
+    "name",
+    "address",
+    "decimals"
+  ],
+  "properties": {
+    "symbol": {
+      "type": "string",
+      "description": "Token symbol/ticker (uppercase, 1-20 characters)",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^[A-Z0-9]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full token name",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "address": {
+      "type": "string",
+      "description": "EIP-55 checksummed token contract address",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
+    },
+    "decimals": {
+      "type": "integer",
+      "description": "Number of decimal places",
+      "minimum": 0,
+      "maximum": 18
+    },
+    "logoURI": {
+      "type": "string",
+      "description": "HTTPS URL to token logo image (recommended 200x200px PNG with transparency)",
+      "pattern": "^https://.*",
+      "maxLength": 500
+    },
+    "website": {
+      "type": "string",
+      "description": "Official project website HTTPS URL",
+      "pattern": "^https://.*",
+      "maxLength": 500
+    },
+    "support": {
+      "type": "string",
+      "description": "Support/contact email address",
+      "format": "email",
+      "maxLength": 320
+    },
+    "github": {
+      "type": "string",
+      "description": "GitHub organization or repository HTTPS URL",
+      "pattern": "^https://github\\.com/.*",
+      "maxLength": 500
+    },
+    "twitter": {
+      "type": "string",
+      "description": "Twitter/X profile HTTPS URL",
+      "pattern": "^https://(twitter\\.com|x\\.com)/.*",
+      "maxLength": 500
+    },
+    "telegram": {
+      "type": "string",
+      "description": "Telegram channel or group URL",
+      "pattern": "^https://t\\.me/.*",
+      "maxLength": 500
+    },
+    "discord": {
+      "type": "string",
+      "description": "Discord server invite HTTPS URL",
+      "pattern": "^https://(discord\\.gg|discord\\.com/invite)/.*",
+      "maxLength": 500
+    },
+    "coingecko": {
+      "type": "string",
+      "description": "CoinGecko listing HTTPS URL",
+      "pattern": "^https://www\\.coingecko\\.com/.*",
+      "maxLength": 500
+    },
+    "coinmarketcap": {
+      "type": "string",
+      "description": "CoinMarketCap listing HTTPS URL",
+      "pattern": "^https://coinmarketcap\\.com/.*",
+      "maxLength": 500
+    },
+    "redFlags": {
+      "type": "array",
+      "description": "Security warnings or concerns (use sparingly with evidence)",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 500
+      },
+      "maxItems": 10
+    }
+  },
+  "additionalProperties": false
+}
