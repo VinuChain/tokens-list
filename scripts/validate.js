@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Validation script for VinuChain Token List
- * Validates all contract and project JSON files against their schemas
+ * Validation script for VinuChain Tokens List
+ * Validates all token JSON files against the token schema
  */
 
 const fs = require('fs');

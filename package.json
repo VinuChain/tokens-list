@@ -1,7 +1,7 @@
 {
   "name": "tokens-list",
   "version": "1.0.0",
-  "description": "VinuChain Token List - A comprehensive registry of verified smart contracts and tokens deployed on VinuChain",
+  "description": "VinuChain Tokens List - A comprehensive registry of verified ERC-20 tokens deployed on VinuChain",
   "main": "scripts/validate.js",
   "engines": {
     "node": ">=18.0.0",
@@ -24,9 +24,10 @@
   "keywords": [
     "vinuchain",
     "tokens",
-    "contracts",
+    "erc20",
     "blockchain",
-    "registry"
+    "registry",
+    "token-list"
   ],
   "author": "VinuChain Community",
   "license": "MIT",
