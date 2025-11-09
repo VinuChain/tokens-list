@@ -4,14 +4,12 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'contracts/**'
-      - 'projects/**'
+      - 'tokens/**'
       - 'schemas/**'
   push:
     branches: [main]
     paths:
-      - 'contracts/**'
-      - 'projects/**'
+      - 'tokens/**'
       - 'schemas/**'
 
 jobs:
@@ -38,7 +36,7 @@ jobs:
       - name: Check JSON formatting
         run: |
           # Check all JSON files are properly formatted
-          find contracts projects schemas -name "*.json" -type f -exec sh -c '
+          find tokens schemas -name "*.json" -type f -exec sh -c '
             for file; do
               if ! jq empty "$file" 2>/dev/null; then
                 echo "❌ Invalid JSON in $file"
