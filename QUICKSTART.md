@@ -1,20 +1,24 @@
 # Quick Start Guide
 
-This guide will help you get started with the VinuChain Token List repository.
+This guide will help you get started with the VinuChain Tokens List repository.
 
 ## For Users
 
-### Viewing Contract Information
+### Viewing Token Information
 
-1. Navigate to `contracts/26600/` to browse VinuChain mainnet contracts
-2. Each file is named by its contract address (EIP55 checksummed)
-3. Open any `.json` file to view contract details
+1. Navigate to `tokens/` to browse registered tokens
+2. Each token has its own folder named by its contract address (EIP55 checksummed)
+3. Open the `.json` file within each folder to view token details
 
-### Viewing Project Information
+### Finding a Specific Token
 
-1. Navigate to `projects/` to browse registered projects
-2. Each file contains project metadata, social links, and token information
-3. Files are named using lowercase, hyphenated identifiers
+```bash
+# Navigate to a token by address
+cd tokens/0x00c1E515EA9579856304198EFb15f525A0bb50f6/
+
+# View token information
+cat 0x00c1E515EA9579856304198EFb15f525A0bb50f6.json
+```
 
 ## For Contributors
 
@@ -38,13 +42,13 @@ npm install
 npm run validate
 ```
 
-### Submitting a Contract
+### Submitting a Token
 
-#### Option 1: Using GitHub Issue Form
+#### Option 1: Using GitHub Issue Form (Recommended)
 
 1. Go to [Issues → New Issue](../../issues/new/choose)
-2. Select "Contract Submission"
-3. Fill out the form
+2. Select "Token Submission"
+3. Fill out the form with your token details
 4. Submit and wait for review
 
 #### Option 2: Manual Submission
@@ -55,63 +59,32 @@ git clone https://github.com/YOUR_USERNAME/tokens-list.git
 cd tokens-list
 
 # 2. Create a new branch
-git checkout -b add-my-contract
+git checkout -b add-my-token
 
-# 3. Create your contract file
-# contracts/26600/0xYourChecksummedAddress.json
-cat > contracts/26600/0xYourAddress.json << 'EOF'
+# 3. Create token directory and file
+mkdir -p tokens/0xYourChecksummedAddress
+
+# 4. Create token JSON file
+cat > tokens/0xYourChecksummedAddress/0xYourChecksummedAddress.json << 'EOF'
 {
-  "project": "your-project",
-  "name": "Your Token",
-  "contract": "YourToken",
-  "source": "https://github.com/yourproject/contracts",
-  "tags": ["token", "erc20"]
+  "symbol": "SYMBOL",
+  "name": "Your Token Name",
+  "address": "0xYourChecksummedAddress",
+  "decimals": 18,
+  "logoURI": "https://yourproject.com/logo.png",
+  "website": "https://yourproject.com"
 }
 EOF
 
-# 4. Validate your submission
+# 5. Validate your submission
 npm run validate
 
-# 5. Commit and push
+# 6. Commit and push
 git add .
-git commit -m "Add YourToken contract"
-git push origin add-my-contract
+git commit -m "Add YourToken"
+git push origin add-my-token
 
-# 6. Create a pull request on GitHub
-```
-
-### Submitting a Project
-
-```bash
-# 1. Create your project file
-# projects/your-project.json
-cat > projects/your-project.json << 'EOF'
-{
-  "name": "Your Project",
-  "website": "https://yourproject.com",
-  "description": "Your project description",
-  "security": "security@yourproject.com",
-  "token": {
-    "chainId": 26600,
-    "address": "0xYourTokenAddress",
-    "symbol": "SYMBOL",
-    "name": "Token Name",
-    "decimals": 18
-  },
-  "social": {
-    "github": "https://github.com/yourproject",
-    "twitter": "https://twitter.com/yourproject"
-  }
-}
-EOF
-
-# 2. Validate
-npm run validate
-
-# 3. Commit and create PR
-git add .
-git commit -m "Add YourProject metadata"
-git push origin add-my-project
+# 7. Create a pull request on GitHub
 ```
 
 ## For Developers
@@ -121,34 +94,41 @@ git push origin add-my-project
 #### JavaScript/TypeScript
 
 ```javascript
-// Fetch all contracts for a specific chain
-const chainId = 26600;
-const response = await fetch(
-  `https://raw.githubusercontent.com/VinuChain/tokens-list/main/contracts/${chainId}/`
-);
-
-// Parse contract data
-const contractAddress = '0xYourContractAddress';
-const contractData = await fetch(
-  `https://raw.githubusercontent.com/VinuChain/tokens-list/main/contracts/${chainId}/${contractAddress}.json`
+// Fetch token data by address
+const tokenAddress = '0x00c1E515EA9579856304198EFb15f525A0bb50f6';
+const tokenData = await fetch(
+  `https://raw.githubusercontent.com/VinuChain/tokens-list/main/tokens/${tokenAddress}/${tokenAddress}.json`
 ).then(res => res.json());
 
-console.log(contractData.name); // Display name
-console.log(contractData.tags); // Contract tags
+console.log(tokenData.symbol);    // Token symbol
+console.log(tokenData.name);      // Token name
+console.log(tokenData.decimals);  // Token decimals
+console.log(tokenData.logoURI);   // Token logo URL
 ```
 
-#### Fetching Project Information
+#### Fetching All Tokens
 
 ```javascript
-const projectId = 'your-project';
-const projectData = await fetch(
-  `https://raw.githubusercontent.com/VinuChain/tokens-list/main/projects/${projectId}.json`
-).then(res => res.json());
+// Note: You'll need to implement directory listing
+// or use the GitHub API to list all token directories
 
-console.log(projectData.name);     // Project name
-console.log(projectData.website);  // Website URL
-console.log(projectData.token);    // Token information
-console.log(projectData.social);   // Social links
+const response = await fetch(
+  'https://api.github.com/repos/VinuChain/tokens-list/contents/tokens'
+);
+const tokenDirs = await response.json();
+
+// Fetch each token's data
+const tokens = await Promise.all(
+  tokenDirs.map(async (dir) => {
+    const address = dir.name;
+    const tokenData = await fetch(
+      `https://raw.githubusercontent.com/VinuChain/tokens-list/main/tokens/${address}/${address}.json`
+    ).then(res => res.json());
+    return tokenData;
+  })
+);
+
+console.log(`Found ${tokens.length} tokens`);
 ```
 
 ### Validation
@@ -160,10 +140,11 @@ npm run validate
 ```
 
 - ✅ JSON syntax and formatting
-- ✅ Schema compliance
-- ✅ Address checksums
-- ✅ Project reference integrity
-- ✅ Filename conventions
+- ✅ Schema compliance (required fields, data types)
+- ✅ Address checksums (EIP-55)
+- ✅ Directory and filename match address
+- ✅ No duplicate addresses
+- ⚠️  Duplicate symbols (warning only)
 
 ## Common Tasks
 
@@ -181,14 +162,14 @@ const checksummed = getAddress('0xabcd...'); // Returns EIP55 checksummed
 
 ```bash
 # Use jq to validate and format JSON
-cat your-file.json | jq .
+cat tokens/0xAddress/0xAddress.json | jq .
 ```
 
-### Find a Project's Security Contact
+### Find Token by Symbol
 
 ```bash
-# Using jq to extract security email
-cat projects/your-project.json | jq -r '.security'
+# Search for a token by symbol (case-insensitive)
+grep -r "\"symbol\": \"VINU\"" tokens/
 ```
 
 ## Getting Help
@@ -203,8 +184,8 @@ cat projects/your-project.json | jq -r '.security'
 
 1. ⭐ Star this repository
 2. 📝 Read the full [README.md](README.md)
-3. 🔍 Browse existing [contracts](contracts/) and [projects](projects/)
-4. ➕ Submit your contract or project
+3. 🔍 Browse existing [tokens](tokens/)
+4. ➕ Submit your token
 5. 🤝 Join the [VinuChain community](https://discord.gg/vinuchain)
 
 ## Troubleshooting
@@ -219,7 +200,7 @@ npm install
 npm run validate
 
 # Check specific JSON file
-cat contracts/26600/0xAddress.json | jq .
+cat tokens/0xAddress/0xAddress.json | jq .
 ```
 
 ### Address Not Checksummed
@@ -231,23 +212,33 @@ import { getAddress } from 'ethers';
 console.log(getAddress('0xabcd1234...')); // Properly checksummed
 ```
 
-### Project Reference Not Found
+### Directory and Filename Mismatch
 
-Ensure the project file exists:
+Ensure the directory name matches the filename:
 
 ```bash
-# Check if project exists
-ls -la projects/your-project.json
+# Correct structure
+tokens/0x00c1E515EA9579856304198EFb15f525A0bb50f6/
+  └── 0x00c1E515EA9579856304198EFb15f525A0bb50f6.json
 
-# If not, create it first
-cat > projects/your-project.json << 'EOF'
+# Incorrect - filename doesn't match directory
+tokens/0x00c1E515EA9579856304198EFb15f525A0bb50f6/
+  └── token.json  # ❌ Wrong!
+```
+
+### Address in JSON Doesn't Match Folder
+
+Ensure the `address` field in your JSON matches the folder name:
+
+```json
 {
-  "name": "Your Project",
-  "website": "https://yourproject.com"
+  "symbol": "VINU",
+  "name": "Vita Inu",
+  "address": "0x00c1E515EA9579856304198EFb15f525A0bb50f6",  // Must match folder name
+  "decimals": 18
 }
-EOF
 ```
 
 ---
 
-Ready to contribute? [Submit your first contract →](../../issues/new/choose)
+Ready to contribute? [Submit your first token →](../../issues/new/choose)

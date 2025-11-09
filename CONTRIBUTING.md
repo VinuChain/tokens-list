@@ -1,6 +1,6 @@
-# Contributing to VinuChain Token List
+# Contributing to VinuChain Tokens List
 
-Thank you for your interest in contributing to the VinuChain Token List! This guide will help you add your project or contract to the registry.
+Thank you for your interest in contributing to the VinuChain Tokens List! This guide will help you add your token to the registry.
 
 ## Table of Contents
 
@@ -15,35 +15,36 @@ Thank you for your interest in contributing to the VinuChain Token List! This gu
 
 ### Prerequisites
 
-- Your contract must be deployed on VinuChain (Chain ID: 26600)
-- Contract should be verified on the block explorer when possible
-- You should have authorization to represent the project
+- Your token must be deployed on VinuChain (Chain ID: 207)
+- Token should be verified on the block explorer when possible
+- You should have authorization to represent the token/project
 - Prepare all required information (see below)
 
 ### Required Information
 
-For **Projects**:
-- Project name and website
-- Contact email addresses (general and security)
-- Token details (if applicable)
-- Social media links
+- **Token Symbol** - Uppercase ticker (1-20 characters)
+- **Token Name** - Full token name (1-100 characters)
+- **Contract Address** - EIP-55 checksummed address
+- **Decimals** - Number of decimal places (0-18)
 
-For **Contracts**:
-- Contract address (EIP55 checksummed)
-- Project association
-- Contract name and user-friendly name
-- Source code URL (GitHub, block explorer, etc.)
-- Relevant tags
+### Optional Information
+
+- Logo URI (200x200px PNG recommended)
+- Website URL
+- Support email
+- GitHub repository
+- Social media links (Twitter, Telegram, Discord)
+- Exchange listings (CoinGecko, CoinMarketCap)
 
 ## Contribution Methods
 
 ### Method 1: Issue Template (Recommended for Most Users)
 
-This is the easiest method for adding your project:
+This is the easiest method for adding your token:
 
 1. Go to [Issues](https://github.com/VinuChain/tokens-list/issues/new/choose)
-2. Select "Add Contract" or "Add Project"
-3. Fill out the form with your project information
+2. Select "Token Submission"
+3. Fill out the form with your token information
 4. Submit the issue
 5. Our team will review and create a PR on your behalf
 
@@ -53,55 +54,44 @@ If you're comfortable with Git and JSON:
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/VinuChain/tokens-list.git
+   git clone https://github.com/YOUR_USERNAME/tokens-list.git
    cd tokens-list
    ```
 
 2. **Create a new branch**
    ```bash
-   git checkout -b add-your-project-name
+   git checkout -b add-your-token-symbol
    ```
 
-3. **Add your project file**
+3. **Create token directory**
+   ```bash
+   # Use your EIP-55 checksummed address
+   mkdir -p tokens/0xYourChecksummedAddress
+   ```
 
-   Create `projects/your-project-name.json`:
+4. **Create token JSON file**
+
+   Create `tokens/0xYourChecksummedAddress/0xYourChecksummedAddress.json`:
+   
    ```json
    {
-     "name": "Your Project Name",
+     "symbol": "SYMBOL",
+     "name": "Your Token Name",
+     "address": "0xYourChecksummedAddress",
+     "decimals": 18,
+     "logoURI": "https://yourproject.com/logo.png",
      "website": "https://yourproject.com",
-     "description": "Brief description of your project",
-     "contact": "contact@yourproject.com",
-     "security": "security@yourproject.com",
-     "token": {
-       "chainId": 26600,
-       "address": "0xYourTokenAddress",
-       "symbol": "SYMBOL",
-       "name": "Token Name",
-       "decimals": 18,
-       "logoURI": "https://yourproject.com/logo.png"
-     },
-     "social": {
-       "github": "https://github.com/yourproject",
-       "twitter": "https://twitter.com/yourproject",
-       "telegram": "https://t.me/yourproject"
-     }
+     "support": "support@yourproject.com",
+     "github": "https://github.com/yourproject",
+     "twitter": "https://twitter.com/yourproject",
+     "telegram": "https://t.me/yourproject",
+     "discord": "https://discord.gg/yourproject",
+     "coingecko": "https://www.coingecko.com/en/coins/yourtoken",
+     "coinmarketcap": "https://coinmarketcap.com/currencies/yourtoken/"
    }
    ```
 
-4. **Add your contract files**
-
-   Create `contracts/26600/0xYourContractAddress.json`:
-   ```json
-   {
-     "project": "your-project-name",
-     "name": "Your Contract Name",
-     "contract": "ContractName",
-     "source": "https://github.com/yourproject/contracts",
-     "tags": ["token", "erc20"]
-   }
-   ```
-
-5. **Validate your JSON**
+5. **Validate your submission**
    ```bash
    npm install
    npm run validate
@@ -109,206 +99,215 @@ If you're comfortable with Git and JSON:
 
 6. **Commit and push**
    ```bash
-   git add .
-   git commit -m "Add YourProjectName"
-   git push origin add-your-project-name
+   git add tokens/
+   git commit -m "Add YourToken (SYMBOL)"
+   git push origin add-your-token-symbol
    ```
 
-7. **Create a Pull Request**
-
-   Go to GitHub and create a PR from your branch to the main repository
-
-### Method 3: Sourcify Integration (Automated)
-
-For contracts verified on Sourcify:
-
-1. Add the security contact tag to your Solidity contract:
-   ```solidity
-   /// @custom:security-contact security@yourproject.com
-   contract YourContract {
-       // Your contract code
-   }
-   ```
-
-2. Verify your contract on [Sourcify](https://sourcify.dev/)
-
-3. Your contract will be automatically included in future imports
+7. **Create a pull request**
+   - Go to GitHub and create a PR from your branch
+   - Fill out the PR template
+   - Wait for review
 
 ## Submission Guidelines
 
-### Project Naming Convention
+### Address Requirements
 
-- Use lowercase with hyphens: `example-project`
-- Keep it short but descriptive
-- Avoid special characters
+- **Must be EIP-55 checksummed**
+  - Use [EthSum](https://ethsum.netlify.app/) or ethers.js to verify
+  - Example: `0x00c1E515EA9579856304198EFb15f525A0bb50f6` ✅
+  - Example: `0x00c1e515ea9579856304198efb15f525a0bb50f6` ❌
 
-### Address Format
+- **Must be deployed on VinuChain**
+  - Verify on [VinuExplorer](https://vinuexplorer.org)
+  - Chain ID must be 207
 
-- All addresses must be EIP55 checksummed
-- Use tools like [ethsum](https://ethsum.netlify.app/) to checksum addresses
-- Example: `0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed`
+### File Structure Requirements
+
+- **Directory name must match address**
+  ```
+  tokens/0xYourAddress/
+  ```
+
+- **Filename must match address**
+  ```
+  tokens/0xYourAddress/0xYourAddress.json
+  ```
+
+- **Address in JSON must match directory/filename**
+  ```json
+  {
+    "address": "0xYourAddress"  // Must match exactly
+  }
+  ```
 
 ### Logo Requirements
 
-- Format: PNG or SVG preferred
-- Size: Square aspect ratio, at least 256x256px
-- Hosting: Must be publicly accessible via HTTPS
-- Content: Clear, recognizable logo without text
+If providing a logo:
 
-### Tags
+- **Format**: PNG or SVG
+- **Size**: 200x200px recommended (max 512x512px)
+- **Background**: Transparent preferred
+- **Hosting**: HTTPS required (IPFS acceptable)
+- **File size**: < 100KB recommended
 
-Choose appropriate tags for your contract:
+### URL Requirements
 
-**Token Standards:**
-- `token` - General token
-- `erc20` - ERC20 token
-- `erc721` - ERC721 NFT
-- `erc1155` - ERC1155 multi-token
+All URLs must be:
 
-**Contract Types:**
-- `factory` - Deploys other contracts
-- `proxy` - Proxy contract
-- `implementation` - Implementation contract
-- `governance` - Governance contract
-- `staking` - Staking contract
-- `vault` - Vault/treasury
-- `router` - DEX router
-- `oracle` - Price oracle
-- `bridge` - Cross-chain bridge
-- `multisig` - Multi-signature wallet
-- `timelock` - Timelock contract
+- Valid HTTPS URLs (except Telegram which uses `t.me`)
+- Publicly accessible
+- Official project URLs (not aggregators or forks)
 
 ## File Format Requirements
 
-### Project File Structure
+### Required Fields
 
 ```json
 {
-  "name": "string (required)",
-  "website": "string/uri (required)",
-  "description": "string (optional)",
-  "contact": "string/email (optional)",
-  "security": "string/email (recommended)",
-  "token": {
-    "chainId": 26600,
-    "address": "string (checksummed)",
-    "symbol": "string",
-    "name": "string",
-    "decimals": 18,
-    "logoURI": "string/uri"
-  },
-  "social": {
-    "github": "string/uri",
-    "twitter": "string/uri",
-    "telegram": "string/uri",
-    "discord": "string/uri",
-    "medium": "string/uri"
-  }
+  "symbol": "VINU",              // Uppercase, 1-20 chars
+  "name": "Vita Inu",            // 1-100 chars
+  "address": "0x...",            // EIP-55 checksummed
+  "decimals": 18                 // Integer, 0-18
 }
 ```
 
-### Contract File Structure
+### Optional Fields
 
 ```json
 {
-  "project": "string (required)",
-  "name": "string (required)",
-  "contract": "string (required)",
-  "source": "string/uri (optional)",
-  "tags": ["array of strings"],
-  "features": {
-    "custom": "metadata"
-  }
+  "logoURI": "https://...",      // HTTPS URL
+  "website": "https://...",      // HTTPS URL
+  "support": "email@domain.com", // Valid email
+  "github": "https://github.com/...",
+  "twitter": "https://twitter.com/...",
+  "telegram": "https://t.me/...",
+  "discord": "https://discord.gg/...",
+  "coingecko": "https://www.coingecko.com/...",
+  "coinmarketcap": "https://coinmarketcap.com/..."
 }
 ```
 
 ## Verification Process
 
-### What We Check
+### Automated Checks
 
-1. **Schema Validation**: JSON files must validate against our schemas
-2. **Address Verification**: Contract must exist on VinuChain
-3. **Authorization**: Submission should come from official project account
-4. **Uniqueness**: No duplicate entries
-5. **Accuracy**: Information matches on-chain data
+When you submit a PR, GitHub Actions will automatically:
 
-### Review Timeline
+1. ✅ Validate JSON syntax
+2. ✅ Check schema compliance
+3. ✅ Verify EIP-55 checksum
+4. ✅ Confirm directory/filename match
+5. ✅ Check for duplicate addresses
+6. ⚠️  Warn about duplicate symbols
 
-- Most PRs are reviewed within 3-5 business days
-- Complex submissions may require additional verification
-- You may be asked for additional proof of authorization
+### Manual Review
 
-### Proof of Authorization
+Our team will review:
 
-If submitting from a non-official account, provide one of:
+1. **Authorization** - Are you authorized to submit this token?
+2. **Accuracy** - Is the information correct and complete?
+3. **Contract verification** - Is the contract verified on block explorer?
+4. **Legitimacy** - Is this a legitimate project (not a scam)?
+5. **URLs** - Are all URLs valid and official?
 
-- Message signed by the contract deployer address
-- Tweet from official project account mentioning the PR
-- Email from official domain confirming the submission
-- GitHub organization membership
+### Timeline
+
+- **Initial response**: Within 48 hours
+- **Review completion**: Within 1 week for most submissions
+- **Complex cases**: May take longer if additional verification needed
 
 ## Best Practices
 
-### Security Contact
+### Do's ✅
 
-Always provide a security contact email. This helps:
-- Responsible disclosure of vulnerabilities
-- Quick communication in case of security issues
-- Building trust with the community
-
-### Keep Information Updated
-
-- Submit PRs to update outdated information
-- Notify us of rebranding or URL changes
-- Update security contacts promptly
-
-### Source Code Links
-
-Provide links to:
-- GitHub repository (preferred)
-- Block explorer verification
-- Documentation
-- Audit reports
-
-### Complete Your Project Profile
-
-The more information you provide, the more useful your listing:
-- Add all relevant social media links
-- Include a clear, concise description
+- Use official project information
+- Verify contract address multiple times
+- Test your JSON with `npm run validate`
+- Provide complete information
 - Use high-quality logos
-- Tag contracts appropriately
+- Keep information up-to-date
 
-## Common Mistakes to Avoid
+### Don'ts ❌
 
-- L Non-checksummed addresses
-- L Invalid JSON format
-- L Missing required fields
-- L Broken links
-- L Incorrect chain ID
-- L Duplicate entries
-- L Unauthorized submissions
+- Submit tokens you don't represent
+- Use incorrect or fake information
+- Submit scam/fraudulent tokens
+- Use low-quality or copyrighted logos
+- Include referral links
+- Submit duplicate entries
+
+## Common Issues
+
+### Address Checksum Errors
+
+```bash
+# Get proper checksum using ethers.js
+npm install ethers
+node -e "console.log(require('ethers').getAddress('0xabcd...'))"
+```
+
+### JSON Syntax Errors
+
+```bash
+# Validate JSON using jq
+cat tokens/0xAddress/0xAddress.json | jq .
+```
+
+### Directory Structure Errors
+
+```bash
+# Correct structure
+tokens/0x00c1E515EA9579856304198EFb15f525A0bb50f6/
+  └── 0x00c1E515EA9579856304198EFb15f525A0bb50f6.json
+
+# Incorrect structure ❌
+tokens/vinu/0x00c1E515EA9579856304198EFb15f525A0bb50f6.json
+```
+
+## Updating Token Information
+
+To update existing token information:
+
+1. Fork the repository
+2. Update the token's JSON file
+3. Run validation: `npm run validate`
+4. Create a PR with description of changes
+5. Provide evidence/authorization for changes
+
+## Removing Tokens
+
+Tokens may be removed if:
+
+- Requested by authorized project representative
+- Contract is identified as fraudulent/scam
+- Project is abandoned or defunct
+- Information cannot be verified
+
+To request removal, open an issue with evidence and authorization.
 
 ## Getting Help
 
-If you need assistance:
+Need help with your submission?
 
-1. Check existing issues and PRs for examples
-2. Review the [README](README.md) for format details
-3. Open an issue with the "question" label
-4. Join our community channels for support
+- 📖 Read the [QUICKSTART.md](QUICKSTART.md)
+- 💬 Ask in [Discussions](../../discussions)
+- 📧 Email: community@vinuchain.org
+- 🔒 Security issues: security@vinuchain.org
 
 ## Code of Conduct
 
-- Be respectful and professional
-- Provide accurate information
-- Don't submit spam or scam projects
-- Report security issues responsibly
-- Help others in the community
+This project follows our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold this code.
 
-## License
+## Questions?
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+If you have questions about contributing:
+
+- Check [QUICKSTART.md](QUICKSTART.md)
+- Browse existing [tokens](tokens/)
+- Open a [Discussion](../../discussions)
+- Contact: community@vinuchain.org
 
 ---
 
-Thank you for contributing to the VinuChain ecosystem!
+Ready to contribute? [Submit your token →](../../issues/new/choose)

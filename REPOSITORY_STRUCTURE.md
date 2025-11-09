@@ -3,39 +3,32 @@
 ```
 tokens-list/
 │
-├── .github/                          # GitHub configuration
+├── .github/                         # GitHub configuration
 │   ├── ISSUE_TEMPLATE/              # Issue templates for submissions
-│   │   ├── contract-submission.yml  # Contract submission form
-│   │   ├── project-submission.yml   # Project submission form
+│   │   ├── token-submission.yml     # Token submission form
 │   │   └── config.yml               # Issue template configuration
 │   ├── workflows/                   # GitHub Actions workflows
 │   │   └── validate.yml             # Automated validation workflow
 │   └── pull_request_template.md     # PR template
 │
-├── contracts/                        # Contract entries by chain ID
-│   └── 26600/                       # VinuChain Mainnet (Chain ID: 26600)
-│       ├── .gitkeep                 # Keep directory in git
-│       └── EXAMPLE.md               # Example documentation
-│
-├── projects/                         # Project metadata files
+├── tokens/                          # Token entries by contract address
 │   ├── .gitkeep                     # Keep directory in git
 │   └── EXAMPLE.md                   # Example documentation
 │
-├── schemas/                          # JSON Schema validation files
-│   ├── contract.schema.json         # Contract entry schema
-│   └── project.schema.json          # Project entry schema
+├── schemas/                         # JSON Schema validation files
+│   ├── token.schema.json            # Token entry schema
 │
-├── scripts/                          # Utility scripts
+├── scripts/                         # Utility scripts
 │   └── validate.js                  # Validation script (Node.js)
 │
-├── .gitignore                        # Git ignore rules
-├── CONTRIBUTING.md                   # Contribution guidelines
-├── LICENSE                           # MIT License
-├── package.json                      # Node.js dependencies and scripts
-├── QUICKSTART.md                     # Quick start guide
-├── README.md                         # Main documentation
-├── REPOSITORY_STRUCTURE.md           # This file
-└── SECURITY.md                       # Security policy
+├── .gitignore                       # Git ignore rules
+├── CONTRIBUTING.md                  # Contribution guidelines
+├── LICENSE                          # MIT License
+├── package.json                     # Node.js dependencies and scripts
+├── QUICKSTART.md                    # Quick start guide
+├── README.md                        # Main documentation
+├── REPOSITORY_STRUCTURE.md          # This file
+└── SECURITY.md                      # Security policy
 ```
 
 ## Key Files
@@ -53,8 +46,7 @@ tokens-list/
 - **LICENSE** - MIT License
 
 ### Schemas
-- **schemas/contract.schema.json** - JSON schema for contract entries
-- **schemas/project.schema.json** - JSON schema for project entries
+- **schemas/token.schema.json** - JSON schema for token entries
 
 ### Scripts
 - **scripts/validate.js** - Validation script for all submissions
@@ -66,14 +58,9 @@ tokens-list/
 
 ## Directory Structure
 
-### contracts/CHAINID/
-Each contract is stored as a JSON file named by its EIP55 checksummed address:
-- `26600/` - VinuChain Mainnet
+### tokens/
+Each token is stored as a JSON file named by its EIP55 checksummed address:
 - Format: `0xAddress.json`
-
-### projects/
-Each project is stored as a JSON file with a lowercase, hyphenated identifier:
-- Format: `project-name.json`
 
 ## Getting Started
 
