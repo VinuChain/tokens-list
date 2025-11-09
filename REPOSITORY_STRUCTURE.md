@@ -94,7 +94,7 @@ Each token is stored as a JSON file named by its EIP55 checksummed address:
    - GitHub Actions runs on every PR
    - Validates JSON format and schemas
    - Checks address checksums
-   - Verifies project references
+   - Verifies directory and filename match address
 
 ## Links
 

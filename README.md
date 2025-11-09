@@ -47,13 +47,13 @@ Each token is represented by a single JSON file in its own folder named by the c
   "name": "Vita Inu",
   "address": "0x00c1E515EA9579856304198EFb15f525A0bb50f6",
   "decimals": 18,
-  "logoURI": "https://vitainu.org/logo.png",
+  "logoURI": "https://vinuexplorer.org/icons/vitainu.svg",
   "website": "https://vitainu.org",
-  "support": "support@vitainu.org",
+  "support": "hello@vitainu.org",
   "github": "https://github.com/vita-inu",
-  "twitter": "https://twitter.com/vitainu",
+  "twitter": "https://twitter.com/vitainucoin",
   "telegram": "https://t.me/vitainu",
-  "discord": "https://discord.gg/vitainu",
+  "discord": "https://discord.gg/vinu",
   "coingecko": "https://www.coingecko.com/en/coins/vita-inu",
   "coinmarketcap": "https://coinmarketcap.com/currencies/vita-inu/"
 }
@@ -162,8 +162,8 @@ Validation checks:
 - **Chain Name**: VinuChain
 - **Chain ID**: 207 (Mainnet)
 - **Native Token**: VC
-- **Block Explorer**: [VinuExplorer](https://vinuexplorer.org)
-- **RPC Endpoint**: https://vinuchain-rpc.com
+- **Block Explorer**: [VinuExplorer](https://vinuexplorer.org/)
+- **RPC Endpoint**: https://rpc.vinuchain.org/
 
 ## Security
 
