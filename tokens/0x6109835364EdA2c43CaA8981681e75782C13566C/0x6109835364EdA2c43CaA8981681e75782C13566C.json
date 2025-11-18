@@ -1,6 +1,15 @@
 {
-  "symbol": "VIN",
-  "name": "VINUHUB",
+  "symbol": "VINUHUB",
+  "name": "VIN",
   "address": "0x6109835364EdA2c43CaA8981681e75782C13566C",
-  "decimals": 18
+  "decimals": 18,
+  "logoURI": "https://photos.pinksale.finance/file/pinksale-logo-upload/1759847695513-f915ce15471ce09f03d8fbf68bc0616f.png",
+  "website": "https://vInuhub.xyz",
+  "support": "vinuhub11@gmail.com",
+  "github": "https://github.com/Vinuhub-vinuchain/",
+  "twitter": "https://twitter.com/vinuhub",
+  "telegram": "https://t.me/vinuhub",
+  "discord": " ",
+  "coingecko": " ",
+  "coinmarketcap": " "
 }
